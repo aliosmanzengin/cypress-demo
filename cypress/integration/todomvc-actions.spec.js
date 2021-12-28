@@ -1,16 +1,19 @@
 ///<reference types="cypress" />
 
+import { TodoPage } from "../page-objects/todo-page"
+
 
 describe('todo actions',()=>{
+    const todoPage = new TodoPage()
+
     beforeEach( () => {
-        cy.visit('http://todomvc-app-for-testing.surge.sh/')
+        todoPage.navigate()
     
-        cy.get('.new-todo', {timeout: 6000}).type("Clean room{enter}")
+        todoPage.addTodo('Clean Room')
     })
-    it('should add a new todo to the list', () => {
-        
+    it('should add a new todo to the list', () => {  
     
-        cy.get('label').should('have.text', 'Clean room')
+        todoPage.validateTodoTxt(0,'Ckeab Room')
         cy.get('.toggle').should('not.be.checked')
         
     })
